@@ -54,7 +54,7 @@ public class SMTPClient {
     public SMTPResponse data(String subject, String message) throws IOException {
         SMTPResponse response = sendCommand("DATA");
         if (response.isIntermediate()) {
-            // HEADER STANDARD
+            // HEADER 
             writer.write("From: <test@mittente.it>\r\n");
             writer.write("To: <destinatario@finto.com>\r\n");
             writer.write("Subject: " + subject + "\r\n");
@@ -96,22 +96,5 @@ public class SMTPClient {
 
     public String getResponse() {
         return lastResponse != null ? lastResponse.toString() : "";
-    }
-
-    public static void main(String[] args) {
-        try {
-            SMTPClient client = new SMTPClient("localhost");
-
-            client.helo("localhost");
-            client.from("studente@esempio.it");
-            client.to("destinatario@finto.com");
-            client.data("Messaggio di prova", "Ciao!\nQuesta è una mail di prova con PaperCut.\nFunziona alla grande!");
-            client.quit();
-
-            System.out.println("Email inviata con successo!");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
